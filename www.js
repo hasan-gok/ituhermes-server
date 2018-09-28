@@ -4,7 +4,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const dbHandler = require('./db_handler');
 const userModel = require('./models/User');
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 dbHandler.then(() => {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended:false}));
@@ -35,7 +35,7 @@ dbHandler.then(() => {
             console.error(reason);
         });
     });
-    app.listen(80);
+    app.listen(port);
 }).catch(
     (reason) => {console.error(reason);}
 );
