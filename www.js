@@ -37,10 +37,10 @@ dbHandler.then(() => {
     });
     app.post('/signup', function(req, res){
         let data = req.body;
-        let name = req.name;
-        let lastName = req.lastName;
-        let email = req.email;
-        let password = req.password;
+        let name = data.name;
+        let lastName = data.lastName;
+        let email = data.email;
+        let password = data.password;
         let message = {};
         userModel.findOne({email:email}).then((data)=>{
             if (data === undefined || data === null){
