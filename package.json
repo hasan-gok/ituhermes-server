@@ -1,0 +1,12 @@
+{
+  "name": "ITUHermesServer",
+  "version": "1.0.0",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "bluebird": "latest",
+    "dotenv": "^6.0.0",
+    "express": "latest",
+    "mongoose": "^5.2.17",
+    "body-parser": "latest"
+  }
+}
