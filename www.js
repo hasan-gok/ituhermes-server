@@ -4,11 +4,13 @@ const app = express();
 const bodyParser = require('body-parser');
 const dbHandler = require('./db_handler');
 const userModel = require('./models/User');
-const host = process.env.HOST || 'localhost';
 const port = process.env.PORT;
 dbHandler.then(() => {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended:false}));
+    app.get('/', function(req, res){
+        res.send('Welcome!');
+    });
     app.post('/login', function(req, res){
         let data = req.body;
         let email = data.email;
@@ -33,7 +35,7 @@ dbHandler.then(() => {
             console.error(reason);
         });
     });
-    app.listen(port);
+    app.listen(80);
 }).catch(
     (reason) => {console.error(reason);}
 );
