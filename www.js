@@ -35,6 +35,39 @@ dbHandler.then(() => {
             console.error(reason);
         });
     });
+    app.post('/signup', function(req, res){
+        let data = req.body;
+        let name = req.name;
+        let lastName = req.lastName;
+        let email = req.email;
+        let password = req.password;
+        let message = {};
+        userModel.findOne({email:email}).then((data)=>{
+            if (data === undefined || data === null){
+                let newUser = new userModel();
+                newUser.name = name;
+                newUser.lastName = lastName;
+                newUser.email = email;
+                newUser.password = password;
+                newUser.save().then(() => {
+                    message.code = "0";
+                    res.status(200).send(message);
+                }).catch((reason)=>{
+                    message.code = "1";
+                    res.status(200).send(message);
+                    console.error(reason);
+                });
+            }
+            else{
+                message.code = "2";
+                res.status(200).send(message);
+            }
+        }).catch((reason) => {
+            message.code = "3";
+            res.status(200).send(message);
+            console.error(reason);
+        });
+    });
     app.listen(port);
 }).catch(
     (reason) => {console.error(reason);}
