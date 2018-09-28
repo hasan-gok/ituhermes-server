@@ -1,6 +1,7 @@
 {
   "name": "ITUHermesServer",
   "version": "1.0.0",
+  "scripts": {"start": "node www.js"},
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "latest",
