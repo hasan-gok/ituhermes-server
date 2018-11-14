@@ -8,8 +8,7 @@ const userSchema = new Schema({
     password: {type:String, required: true},
     name: {type: String, required: true},
     lastName: {type: String, required: true},
-    following: {type: [String], default: []},
-    is: {type: Boolean, default: false}
+    tags: {type: [String], default: []}
 });
 
 userSchema.methods.hash = function(password){
