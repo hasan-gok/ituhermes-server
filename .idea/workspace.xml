@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="47d1be84-0326-4e9e-8f43-f164a97e463c" name="Default Changelist" comment="">
+    <list default="true" id="47d1be84-0326-4e9e-8f43-f164a97e463c" name="Default Changelist" comment="Fix password">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routers/tag_router.js" beforeDir="false" afterPath="$PROJECT_DIR$/routers/tag_router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/User.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routers/user_router.js" beforeDir="false" afterPath="$PROJECT_DIR$/routers/user_router.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -64,14 +65,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="2771" />
-          <entry key="txt" value="39" />
+          <entry key="js" value="3386" />
+          <entry key="txt" value="65" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="2771" />
-          <entry key="PLAIN_TEXT" value="39" />
+          <entry key="JavaScript" value="3386" />
+          <entry key="PLAIN_TEXT" value="65" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -97,8 +98,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="53" column="39" selection-start-line="53" selection-start-column="39" selection-end-line="53" selection-end-column="39" />
+            <state relative-caret-position="-130">
+              <caret line="52" column="44" selection-start-line="52" selection-start-column="44" selection-end-line="52" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -106,13 +107,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routers/user_router.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-204">
-              <caret selection-end-line="2" selection-end-column="30" />
+            <state relative-caret-position="255">
+              <caret line="45" selection-start-line="45" selection-end-line="45" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routers/tag_router.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="102">
@@ -124,17 +125,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/db_handler.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
+            <state relative-caret-position="23">
               <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/User.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
-              <caret line="25" selection-start-line="25" selection-end-line="26" selection-end-column="22" />
+            <state relative-caret-position="187">
+              <caret line="20" selection-start-line="20" selection-end-line="20" />
             </state>
           </provider>
         </entry>
@@ -177,13 +178,13 @@
         <option value="$PROJECT_DIR$/models/Users.js" />
         <option value="$PROJECT_DIR$/db_handler.js" />
         <option value="$PROJECT_DIR$/.env" />
-        <option value="$PROJECT_DIR$/models/User.js" />
         <option value="$PROJECT_DIR$/constants.js" />
         <option value="$PROJECT_DIR$/models/Tag.js" />
-        <option value="$PROJECT_DIR$/routers/user_router.js" />
         <option value="$PROJECT_DIR$/models/Tags.js" />
-        <option value="$PROJECT_DIR$/www.js" />
         <option value="$PROJECT_DIR$/routers/tag_router.js" />
+        <option value="$PROJECT_DIR$/www.js" />
+        <option value="$PROJECT_DIR$/routers/user_router.js" />
+        <option value="$PROJECT_DIR$/models/User.js" />
       </list>
     </option>
   </component>
@@ -219,6 +220,11 @@
             <path>
               <item name="ituhermes-server" type="b2602c69:ProjectViewProjectNode" />
               <item name="ituhermes-server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ituhermes-server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ituhermes-server" type="462c0819:PsiDirectoryNode" />
+              <item name="routers" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -270,7 +276,7 @@
       <workItem from="1538117767172" duration="14382000" />
       <workItem from="1542182492527" duration="5207000" />
       <workItem from="1542194159390" duration="50000" />
-      <workItem from="1542194282961" duration="4418000" />
+      <workItem from="1542194282961" duration="8502000" />
     </task>
     <task id="LOCAL-00001" summary="Tag and user routes">
       <created>1542198706536</created>
@@ -286,31 +292,45 @@
       <option name="project" value="LOCAL" />
       <updated>1542201083366</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Fixes">
+      <created>1542201820548</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1542201820548</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Logs">
+      <created>1542203333999</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1542203333999</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31853000" />
+    <option name="totallyTimeSpent" value="35937000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24330357" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49766356" visible="true" weight="0.24330357" />
+      <window_info id="Structure" order="1" sideWeight="0.50233644" side_tool="true" visible="true" weight="0.24330357" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" weight="0.3295082" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.29836065" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" visible="true" weight="0.3295082" />
-      <window_info anchor="bottom" id="Terminal" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="0" weight="0.3295082" />
+      <window_info anchor="bottom" id="Message" order="1" />
+      <window_info anchor="bottom" id="Find" order="2" />
+      <window_info active="true" anchor="bottom" id="Run" order="3" visible="true" weight="0.29836065" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="7" />
+      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.3295082" />
+      <window_info anchor="bottom" id="Terminal" order="10" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -335,7 +355,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Tag and user routes" />
     <MESSAGE value="Fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixes" />
+    <MESSAGE value="Logs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Logs" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="editorHistoryManager">
@@ -345,13 +366,6 @@
     <entry file="file://$PROJECT_DIR$/.env">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/db_handler.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/Tags.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -359,24 +373,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/User.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="25" selection-start-line="25" selection-end-line="26" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="53" column="39" selection-start-line="53" selection-start-column="39" selection-end-line="53" selection-end-column="39" />
+        <state relative-caret-position="-130">
+          <caret line="52" column="44" selection-start-line="52" selection-start-column="44" selection-end-line="52" selection-end-column="44" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routers/user_router.js">
+    <entry file="file://$PROJECT_DIR$/db_handler.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-204">
-          <caret selection-end-line="2" selection-end-column="30" />
+        <state relative-caret-position="23">
+          <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -384,6 +391,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="37" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routers/user_router.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="45" selection-start-line="45" selection-end-line="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/User.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
         </state>
       </provider>
     </entry>

@@ -44,8 +44,7 @@ router.route('/:email/tag/:name')
                 user.following.push(tag_name);
                 user.save().then(() => {
                     res.sendStatus(200);
-                }).catch((reason) => {
-                    console.log(reason);
+                }).catch(() => {
                     res.sendStatus(404);
                 });
             }

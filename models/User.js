@@ -8,7 +8,8 @@ const userSchema = new Schema({
     password: {type:String, required: true},
     name: {type: String, required: true},
     lastName: {type: String, required: true},
-    following: {type: [String], default: []}
+    following: {type: [String], default: []},
+    is: {type: Boolean, default: false}
 });
 
 userSchema.methods.hash = function(password){
@@ -16,8 +17,13 @@ userSchema.methods.hash = function(password){
 };
 
 userSchema.pre('save', function(next){
-    this.password = this.hash(this.password);
-    next();
+    if (this.isModified('password')) {
+        this.password = this.hash(this.password);
+        next();
+    }
+    else {
+        return next();
+    }
 });
 userSchema.methods.validatePassword = function(password){
     return bcrypt.compareSync(password, this.password);
