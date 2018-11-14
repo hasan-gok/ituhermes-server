@@ -8,6 +8,8 @@ const port = process.env.PORT || 5000;
 dbHandler.then(() => {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended:false}));
+    app.use('/user', require('./routers/user_router'));
+    app.use('/tags', require('./routers/tag_router'));
     app.get('/', function(req, res){
         res.send('Welcome!');
     });
