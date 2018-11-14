@@ -21,13 +21,13 @@ router.route('/:email/tag/:name')
         const tag_name = req.params.name;
         if (user) {
             if (tag_name) {
-                let following = [];
-                for (let i = 0; i < user.following.length; i++) {
-                    if (user.following[i] !== tag_name) {
-                        following.push(user.following[i]);
+                let tags = [];
+                for (let i = 0; i < user.tags.length; i++) {
+                    if (user.tags[i] !== tag_name) {
+                        tags.push(user.tags[i]);
                     }
                 }
-                user.following = following;
+                user.tags = tags;
                 user.save().then(() => {
                     res.sendStatus(200);
                 }).catch(() => {
@@ -41,7 +41,7 @@ router.route('/:email/tag/:name')
         const tag_name = req.params.name;
         if (user) {
             if (tag_name) {
-                user.following.push(tag_name);
+                user.tags.push(tag_name);
                 user.save().then(() => {
                     res.sendStatus(200);
                 }).catch(() => {
