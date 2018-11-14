@@ -51,6 +51,7 @@ dbHandler.then(() => {
                 newUser.lastName = lastName;
                 newUser.email = email;
                 newUser.password = password;
+                newUser.following = [];
                 newUser.save().then(() => {
                     message.code = "0";
                     res.status(200).send(message);
