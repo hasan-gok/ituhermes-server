@@ -4,7 +4,7 @@ const tagsModel = require('../models/Tags');
 router.get('/', function (req, res) {
     tagsModel.findOne().then((tags) => {
         if (tags) {
-            res.status(200).json(tags.tags);
+            res.status(200).json(tags);
         }
     }).catch(() => {
         res.sendStatus(404);
