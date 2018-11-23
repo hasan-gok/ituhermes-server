@@ -3,7 +3,7 @@ mongoose.Promise = require('bluebird');
 const Schema = mongoose.Schema;
 
 const tagsSchema = new Schema({
-    tags: {type: [String], default: []}
+    tags: [{type: String}]
 });
 
 const Tags = mongoose.model('Tags', tagsSchema);

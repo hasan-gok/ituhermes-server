@@ -1,13 +1,17 @@
 {
   "name": "ITUHermesServer",
   "version": "1.0.0",
-  "scripts": {"start": "node www.js"},
+  "scripts": {
+    "start": "node www.js"
+  },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "latest",
+    "body-parser": "latest",
     "dotenv": "^6.0.0",
     "express": "latest",
     "mongoose": "^5.2.17",
-    "body-parser": "latest"
+    "mongoose-auto-increment": "^5.0.1",
+    "mongoose-deep-populate": "^3.1.1"
   }
 }

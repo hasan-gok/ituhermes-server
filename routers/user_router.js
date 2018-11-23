@@ -3,7 +3,7 @@ const userModel = require('../models/User');
 let router = express.Router();
 
 router.param('email', function (req, res, next, email) {
-    userModel.findOne({"email": email}).then((user) => {
+    userModel.findOne({'email': email}).then((user) => {
         if (!user) {
             return res.sendStatus(404);
         }
@@ -16,7 +16,7 @@ router.get('/:email', function (req, res) {
 });
 
 router.route('/:email/tag/:name')
-    .delete(function (req, res) {
+    .delete(function (req, res, next) {
         let user = req.user;
         const tag_name = req.params.name;
         if (user) {
@@ -29,25 +29,33 @@ router.route('/:email/tag/:name')
                 }
                 user.tags = tags;
                 user.save().then(() => {
-                    res.sendStatus(200);
-                }).catch(() => {
-                    res.sendStatus(304);
-                });
+                    return res.sendStatus(200);
+                }).catch(next);
+            }
+            else {
+                return res.sendStatus(404);
             }
         }
+        else {
+            return res.sendStatus(404);
+        }
     })
-    .put(function (req, res) {
+    .put(function (req, res, next) {
         let user = req.user;
         const tag_name = req.params.name;
+        let error = true;
         if (user) {
             if (tag_name) {
+                error = false;
                 user.tags.push(tag_name);
                 user.save().then(() => {
                     res.sendStatus(200);
-                }).catch(() => {
-                    res.sendStatus(404);
-                });
+                    return next();
+                }).catch(next);
             }
+        }
+        if (error) {
+            return res.sendStatus(404);
         }
     });
 

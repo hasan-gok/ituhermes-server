@@ -10,6 +10,7 @@ dbHandler.then(() => {
     app.use(bodyParser.urlencoded({extended:false}));
     app.use('/user', require('./routers/user_router'));
     app.use('/tags', require('./routers/tag_router'));
+    app.use('/topic', require('./routers/topic_router'));
     app.get('/', function(req, res){
         res.send('Welcome!');
     });
@@ -70,6 +71,13 @@ dbHandler.then(() => {
             res.status(200).send(message);
             console.error(reason);
         });
+    });
+    app.use(function (err, req, res, next) {
+        if (err) {
+            console.error(err);
+            res.sendStatus(500);
+        }
+        return next();
     });
     app.listen(port);
 }).catch(

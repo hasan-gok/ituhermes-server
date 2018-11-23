@@ -8,7 +8,8 @@ const userSchema = new Schema({
     password: {type:String, required: true},
     name: {type: String, required: true},
     lastName: {type: String, required: true},
-    tags: {type: [String], default: []}
+    tags: {type: [String], default: []},
+    subscribing: {type: [Schema.Types.ObjectId], ref: 'Topic'}
 });
 
 userSchema.methods.hash = function(password){
