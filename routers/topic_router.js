@@ -4,6 +4,8 @@ const topicModel = require('../models/Topic');
 const userModel = require('../models/User');
 const postModel = require('../models/Post');
 const Constants = require('../Constants');
+const auth = require('../utility/auth');
+router.all('*', auth.jwt_middleware);
 
 const checkSubscription = function (userEmail, topicId) {
     return new Promise(function (resolve, reject) {
@@ -36,7 +38,7 @@ router.put('/:topicId/subscribe', function (req, res, next) {
     if (!data) {
         return res.sendStatus(404);
     }
-    let email = data.email;
+    let email = req.user.email;
     checkSubscription(email, req.params.topicId).then((result) => {
         if (result.isSubscribing) {
             res.sendStatus(200);
@@ -57,11 +59,7 @@ router.put('/:topicId/subscribe', function (req, res, next) {
     }).catch(next);
 });
 router.delete('/:topicId/subscribe', function (req, res, next) {
-    let data = req.body;
-    if (!data) {
-        return res.sendStatus(404);
-    }
-    let email = data.email;
+    let email = req.user.email;
     checkSubscription(email, req.params.topicId).then((result) => {
         if (!result.isSubscribing) {
             res.sendStatus(200);
@@ -130,7 +128,7 @@ router.get('/:topicId/:pageNumber/posts', function (req, res, next) {
 });
 
 router.get('/', function (req, res, next) {
-    userModel.findOne({email: req.query.email}).then((user) => {
+    userModel.findOne({email: req.user.email}).then((user) => {
         topicModel.find().then((topics) => {
             let retTopics = [];
             let rangeStart = req.query.rangeStart;
@@ -179,7 +177,7 @@ router.put('/', function (req, res, next) {
             let newTopic = new topicModel();
             newTopic.title = data.title;
             newTopic.tag = data.tag;
-            userModel.findOne({email: data.senderEmail})
+            userModel.findOne({email: req.user.email})
                 .then((user) => {
                     if (!user) {
                         return res.sendStatus(404);
@@ -201,8 +199,7 @@ router.put('/', function (req, res, next) {
 });
 
 router.put('/:topicId/posts/', function (req, res, next) {
-    let data = req.body;
-    checkSubscription(data.email, req.params.topicId)
+    checkSubscription(req.user.email, req.params.topicId)
         .then((result) => {
             if (result.isSubscribing) {
                 let user = result.user;

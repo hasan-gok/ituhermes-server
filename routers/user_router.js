@@ -1,21 +1,12 @@
 const express = require('express');
-const userModel = require('../models/User');
 let router = express.Router();
-
-router.param('email', function (req, res, next, email) {
-    userModel.findOne({'email': email}).then((user) => {
-        if (!user) {
-            return res.sendStatus(404);
-        }
-        req.user = user;
-        return next();
-    }).catch(next);
-});
-router.get('/:email', function (req, res) {
+const auth = require('../utility/auth');
+router.all('*', auth.jwt_middleware);
+router.get('/', function (req, res) {
     res.status(200).json(req.user);
 });
 
-router.route('/:email/tag/:name')
+router.route('/tag/:name')
     .delete(function (req, res, next) {
         let user = req.user;
         const tag_name = req.params.name;

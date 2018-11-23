@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const dbHandler = require('./db_handler');
 const userModel = require('./models/User');
 const port = process.env.PORT || 5000;
+const auth = require('./utility/auth');
 dbHandler.then(() => {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended:false}));
@@ -31,7 +32,8 @@ dbHandler.then(() => {
             else{
                 message.code = '2';
             }
-            res.status(200).send(message);
+            message.token = auth.createJWTToken({sessionData: data});
+            res.status(200).json(message);
         }).catch((reason) => {
             message.code = '3';
             res.status(200).send(message);
