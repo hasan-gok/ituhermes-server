@@ -212,7 +212,7 @@ router.put('/:topicId/posts/', function (req, res, next) {
                 newPost.sender = user._id;
                 newPost.save().then((post) => {
                     topic.posts.push(post._id);
-                    topic.posts.save().then(() => {
+                    topic.save().then(() => {
                         res.sendStatus(200);
                         return next();
                     }).catch(next);
