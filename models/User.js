@@ -9,7 +9,8 @@ const userSchema = new Schema({
     name: {type: String, required: true},
     lastName: {type: String, required: true},
     tags: {type: [String], default: []},
-    subscribing: {type: [Schema.Types.ObjectId], ref: 'Topic'}
+    subscribing: {type: [Schema.Types.ObjectId], ref: 'Topic'},
+    firebaseToken: {type: String}
 });
 
 userSchema.methods.hash = function(password){

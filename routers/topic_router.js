@@ -5,8 +5,8 @@ const userModel = require('../models/User');
 const postModel = require('../models/Post');
 const Constants = require('../Constants');
 const auth = require('../utility/auth');
+const firebase = require('../utility/firebase');
 router.all('*', auth.jwt_middleware);
-
 const checkSubscription = function (userEmail, topicId) {
     return new Promise(function (resolve, reject) {
         userModel.findOne({email: userEmail}).then((user) => {
@@ -32,14 +32,26 @@ const checkSubscription = function (userEmail, topicId) {
     });
 };
 
-
+router.get('/info/:topicId', function (req, res, next) {
+    checkSubscription(req.user.email, req.params.topicId).then((result) => {
+        console.log(result);
+        let info = {};
+        let topic = result.topic;
+        info.title = topic.title;
+        info.tag = topic.tag;
+        info.size = topic.posts.length;
+        info.isSubscribing = result.isSubscribing;
+        res.status(200).json(info);
+        return next();
+    }).catch(next);
+});
 router.put('/:topicId/subscribe', function (req, res, next) {
     let data = req.body;
     if (!data) {
         return res.sendStatus(404);
     }
-    let email = req.user.email;
-    checkSubscription(email, req.params.topicId).then((result) => {
+    console.log("subscribed");
+    checkSubscription(req.user.email, req.params.topicId).then((result) => {
         if (result.isSubscribing) {
             res.sendStatus(200);
             return next();
@@ -59,8 +71,8 @@ router.put('/:topicId/subscribe', function (req, res, next) {
     }).catch(next);
 });
 router.delete('/:topicId/subscribe', function (req, res, next) {
-    let email = req.user.email;
-    checkSubscription(email, req.params.topicId).then((result) => {
+    console.log("unsubscribed");
+    checkSubscription(req.user.email, req.params.topicId).then((result) => {
         if (!result.isSubscribing) {
             res.sendStatus(200);
             return next();
@@ -186,6 +198,15 @@ router.put('/', function (req, res, next) {
                     newTopic.subscribers.push(user._id);
                     newTopic.save().then((topic) => {
                         res.status(200).send({topicId: topic.topicId});
+                        userModel.find({tags: topic.tag}).then((users) => {
+                            users.forEach((user) => {
+                                if (!user.email.equals(req.user.email)) {
+                                    if (user.firebaseToken) {
+                                        firebase.sendNewTopicMessage(user, topic.title, topic.topicId, topic.tag);
+                                    }
+                                }
+                            });
+                        }).catch(next);
                         return next();
                     }).catch(next);
                 }).catch(next);
@@ -199,18 +220,38 @@ router.put('/', function (req, res, next) {
 });
 
 router.put('/:topicId/posts/', function (req, res, next) {
+
     checkSubscription(req.user.email, req.params.topicId)
         .then((result) => {
             if (result.isSubscribing) {
                 let user = result.user;
                 let topic = result.topic;
                 let newPost = new postModel();
-                newPost.message = data.message;
+                newPost.message = req.body.message;
                 newPost.sender = user._id;
                 newPost.save().then((post) => {
                     topic.posts.push(post._id);
-                    topic.save().then(() => {
+                    topic.save()
+                        .then((topic) => {
                         res.sendStatus(200);
+                            topic.subscribers.forEach((id) => {
+                                if (!id.equals(user._id)) {
+                                    userModel.findOne({_id: id})
+                                        .then((subscribingUser) => {
+                                            let date = new Date(post.createdAt);
+                                            date = date.toLocaleDateString('en-Us', {
+                                                hour: 'numeric',
+                                                minute: 'numeric',
+                                                hour12: false
+                                            });
+                                            if (subscribingUser.firebaseToken) {
+                                                firebase.sendNewPostMessage(user, subscribingUser, topic.topicId, req.body.message, date);
+                                            }
+                                        }).catch((err) => {
+                                        console.error(err)
+                                    });
+                                }
+                            });
                         return next();
                     }).catch(next);
                 }).catch(next);

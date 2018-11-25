@@ -10,11 +10,12 @@
     "body-parser": "latest",
     "dotenv": "^6.0.0",
     "express": "latest",
+    "firebase-admin": "latest",
     "jsonwebtoken": "^8.4.0",
     "loadash": "^1.0.0",
+    "lodash": "latest",
     "mongoose": "^5.2.17",
     "mongoose-auto-increment": "^5.0.1",
-    "mongoose-deep-populate": "^3.1.1",
-    "lodash": "latest"
+    "mongoose-deep-populate": "^3.1.1"
   }
 }
