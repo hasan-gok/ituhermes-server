@@ -200,7 +200,7 @@ router.put('/', function (req, res, next) {
                         res.status(200).send({topicId: topic.topicId});
                         userModel.find({tags: topic.tag}).then((users) => {
                             users.forEach((user) => {
-                                if (!user.email.equals(req.user.email)) {
+                                if (user.email !== req.user.email) {
                                     if (user.firebaseToken) {
                                         firebase.sendNewTopicMessage(user, topic.title, topic.topicId, topic.tag);
                                     }
