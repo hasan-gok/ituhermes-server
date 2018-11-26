@@ -6,7 +6,17 @@ const postModel = require('../models/Post');
 const Constants = require('../Constants');
 const auth = require('../utility/auth');
 const firebase = require('../utility/firebase');
+const mongoose = require('mongoose');
 router.all('*', auth.jwt_middleware);
+
+setInterval(() => {
+    topicModel.deleteMany({posts: {$size: 0}})
+        .then(() => {
+        })
+        .catch((err) => {
+            console.error(err)
+        });
+}, 1000 * 60 * 15);
 const checkSubscription = function (userEmail, topicId) {
     return new Promise(function (resolve, reject) {
         userModel.findOne({email: userEmail}).then((user) => {
@@ -31,6 +41,7 @@ const checkSubscription = function (userEmail, topicId) {
         });
     });
 };
+
 
 router.get('/info/:topicId', function (req, res, next) {
     checkSubscription(req.user.email, req.params.topicId).then((result) => {
