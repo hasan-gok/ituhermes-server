@@ -12,6 +12,7 @@ dbHandler.then(() => {
     app.use('/user', require('./routers/user_router'));
     app.use('/tags', require('./routers/tag_router'));
     app.use('/topic', require('./routers/topic_router'));
+    app.use('/post', require('./routers/post_router'));
     app.get('/', function(req, res){
         res.send('Welcome!');
     });

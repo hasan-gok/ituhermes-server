@@ -231,7 +231,6 @@ router.put('/', function (req, res, next) {
 });
 
 router.put('/:topicId/posts/', function (req, res, next) {
-
     checkSubscription(req.user.email, req.params.topicId)
         .then((result) => {
             if (result.isSubscribing) {
@@ -273,6 +272,36 @@ router.put('/:topicId/posts/', function (req, res, next) {
             }
         }).catch(next);
 });
-
-
+router.get('/search', function (req, res, next) {
+    const query = req.query.q;
+    topicModel.find().then((topics) => {
+        let result = [];
+        for (let i = 0; i < topics.length; i++) {
+            let found = false;
+            if (topics[i].title.toLowerCase().includes(query.toLowerCase())) {
+                found = true;
+            }
+            else if (topics[i].tag.includes(query)) {
+                found = true;
+            }
+            if (found) {
+                let data = {};
+                data.title = topics[i].title;
+                data.topicId = topics[i].topicId;
+                data.tag = topics[i].tag;
+                data.postSize = topics[i].posts.length;
+                data.isSubscribing = false;
+                for (let j = 0; j < topics[i].subscribers.length; j++) {
+                    if (topics[i].subscribers[j].equals(req.user._id)) {
+                        data.isSubscribing = true;
+                        break;
+                    }
+                }
+                result.push(data);
+            }
+        }
+        res.status(200).json({topics: result});
+        return next();
+    }).catch(next);
+});
 module.exports = router;
