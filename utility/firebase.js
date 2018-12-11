@@ -24,21 +24,26 @@ service.sendNewTopicMessage = (user, title, topicId, tag) => {
 };
 
 service.sendNewPostMessage = (sender, receiver, topicId, post, date) => {
-    let message = {
-        data: {
-            sender: sender.name + " " + sender.lastName,
-            post: post,
-            date: date,
-            topicId: topicId.toString(),
-            type: 'post'
-        },
-        token: receiver.firebaseToken
-    };
-    admin.messaging().send(message)
-        .then((response) => {
-            console.log(response);
-        }).catch((error) => {
-        console.error(error);
-    });
+    try {
+        let message = {
+            data: {
+                sender: sender.name + " " + sender.lastName,
+                post: post,
+                date: date,
+                topicId: topicId.toString(),
+                type: 'post'
+            },
+            token: receiver.firebaseToken
+        };
+        admin.messaging().send(message)
+            .then((response) => {
+                console.log(response);
+            }).catch((error) => {
+            console.error(error);
+        });
+    } catch (err) {
+        console.error("Errrr");
+        console.error(err);
+    }
 };
 module.exports = service;

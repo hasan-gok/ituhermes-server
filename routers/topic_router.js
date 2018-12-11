@@ -45,7 +45,6 @@ const checkSubscription = function (userEmail, topicId) {
 
 router.get('/info/:topicId', function (req, res, next) {
     checkSubscription(req.user.email, req.params.topicId).then((result) => {
-        console.log(result);
         let info = {};
         let topic = result.topic;
         info.title = topic.title;
@@ -61,7 +60,6 @@ router.put('/:topicId/subscribe', function (req, res, next) {
     if (!data) {
         return res.sendStatus(404);
     }
-    console.log("subscribed");
     checkSubscription(req.user.email, req.params.topicId).then((result) => {
         if (result.isSubscribing) {
             res.sendStatus(200);
@@ -82,7 +80,6 @@ router.put('/:topicId/subscribe', function (req, res, next) {
     }).catch(next);
 });
 router.delete('/:topicId/subscribe', function (req, res, next) {
-    console.log("unsubscribed");
     checkSubscription(req.user.email, req.params.topicId).then((result) => {
         if (!result.isSubscribing) {
             res.sendStatus(200);
@@ -248,14 +245,16 @@ router.put('/:topicId/posts/', function (req, res, next) {
                                 if (!id.equals(user._id)) {
                                     userModel.findOne({_id: id})
                                         .then((subscribingUser) => {
-                                            let date = new Date(post.createdAt);
-                                            date = date.toLocaleDateString('en-Us', {
-                                                hour: 'numeric',
-                                                minute: 'numeric',
-                                                hour12: false
-                                            });
-                                            if (subscribingUser.firebaseToken) {
-                                                firebase.sendNewPostMessage(user, subscribingUser, topic.topicId, req.body.message, date);
+                                            if (subscribingUser) {
+                                                let date = new Date(post.createdAt);
+                                                date = date.toLocaleDateString('en-Us', {
+                                                    hour: 'numeric',
+                                                    minute: 'numeric',
+                                                    hour12: false
+                                                });
+                                                if (subscribingUser.firebaseToken) {
+                                                    firebase.sendNewPostMessage(user, subscribingUser, topic.topicId, req.body.message, date);
+                                                }
                                             }
                                         }).catch((err) => {
                                         console.error(err)

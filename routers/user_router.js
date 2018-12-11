@@ -15,8 +15,6 @@ router.get('/', function (req, res, next) {
 
 });
 router.put('/fbToken', (req, res, next) => {
-    console.log("new token");
-    console.log(req.body.fbToken);
     userModel.findOne({email: req.user.email}).then((user) => {
         user.firebaseToken = req.body.fbToken;
         user.save().then(() => {
